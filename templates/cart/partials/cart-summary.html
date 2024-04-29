@@ -1,0 +1,206 @@
+<!--<div hx-get="{% url 'cart:update_cart_summary' %}"-->
+<!--     hx-trigger="update-cart from:body"-->
+<!--     hx-swap="outerHTML"-->
+<!--     class="p-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">-->
+
+<!--    <div class="pt-4" id="faq" role="tabpanel" aria-labelledby="faq-tab">-->
+
+<!--        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700" id="order-summary">-->
+
+<!--            <div>-->
+<!--                <h3 class="p-2 mb-3 text-lg font-medium text-gray-900 dark:text-white">Order Summary</h3>-->
+<!--            </div>-->
+
+<!--            <li class="py-3 sm:py-4">-->
+<!--                <div class="flex items-center justify-between">-->
+<!--                    <div class="flex items-center min-w-0">-->
+<!--                        <div class="ml-3">-->
+<!--                            <p class="font-medium text-sm text-gray-900 truncate dark:text-white">-->
+<!--                                Subtotal-->
+<!--                            </p>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">-->
+<!--                        <div id="subtotal-section">-->
+<!--                            <span id="subtotal"-->
+<!--                                  hx-get="{% url 'cart:update_cart_summary' %}"-->
+<!--                                  hx-trigger="update-cart from:body" hx-swap="innerHTML"-->
+<!--                                  hx-select="#subtotal-section">${{ subtotal }}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+
+
+<!--            {% if cart.coupon %}-->
+<!--            <li class="py-3 sm:py-4">-->
+<!--                <div class="flex items-center justify-between" id="coupon-section">-->
+<!--                    <div class="flex items-center min-w-0">-->
+<!--                        <div class="flex items-center">-->
+<!--                            <form hx-post="{% url 'coupons:remove_coupon' %}">-->
+<!--                                {% csrf_token %}-->
+<!--                                <button type="submit" class="mr-2 lg:mt-2">-->
+<!--                                    <svg class="w-5 h-5 text-red-800 dark:text-red-500" aria-hidden="true"-->
+<!--                                         xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">-->
+<!--                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"-->
+<!--                                              stroke-width="2"-->
+<!--                                              d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V5Z"/>-->
+<!--                                    </svg>-->
+<!--                                </button>-->
+<!--                            </form>-->
+<!--                            <p class="font-medium text-gray-900 truncate dark:text-white">-->
+<!--                                Coupon {{ cart.coupon.code }}-->
+<!--                            </p>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="inline-flex items-center text-base font-semibold text-red-900 dark:text-red-500">-->
+<!--                        <span id="discount" hx-get="{% url 'cart:update_cart_summary' %}"-->
+<!--                              hx-trigger="update-cart from:body" hx-swap="innerHTML" hx-select="#discount">{{ discount }}</span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            {% endif %}-->
+
+
+<!--            <li class="py-3 sm:py-4">-->
+<!--                <div class="flex items-center justify-between">-->
+<!--                    <div class="flex items-center min-w-0">-->
+<!--                        <div class="ml-3">-->
+<!--                            <p class="font-medium text-sm text-gray-900 truncate dark:text-white">-->
+<!--                                Tax-->
+<!--                            </p>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">-->
+<!--                        <div id="tax-section">-->
+<!--                            <span id="tax" hx-get="{% url 'cart:update_cart_summary' %}"-->
+<!--                                  hx-trigger="update-cart from:body" hx-swap="innerHTML"-->
+<!--                                  hx-select="#tax-section">${{ tax|floatformat:1 }}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--            <li class="py-3 sm:py-4">-->
+<!--                <div class="flex items-center justify-between">-->
+<!--                    <div class="flex items-center min-w-0">-->
+
+<!--                        <div class="ml-3">-->
+<!--                            <p class="font-medium text-sm text-gray-900 truncate dark:text-white">-->
+<!--                                Total-->
+<!--                            </p>-->
+
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">-->
+<!--                        <div id="total-price-section">-->
+<!--                            <span id="total-price" hx-get="{% url 'cart:update_cart_summary' %}"-->
+<!--                                  hx-trigger="update-cart from:body" hx-swap="innerHTML"-->
+<!--                                  hx-select="#total-price-section">${{ total_price|floatformat:1 }}</span>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </li>-->
+<!--        </ul>-->
+<!--    </div>-->
+<!--    <div class="px-4 py-2 text-gray-400 dark:border-gray-600">-->
+<!--        <a href="{% url 'orders:create_order' %}"-->
+<!--           class="w-full flex items-center justify-center px-5 py-3 text-md font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">-->
+<!--            Checkout-->
+<!--        </a>-->
+<!--    </div>-->
+<!--    <div class="flex items-center justify-center text-gray-400 rounded dark:border-gray-600">-->
+<!--        <a href="{% url 'store:product_list' %}">Or Continue Shopping</a>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+
+<div hx-get="{% url 'cart:update_cart_summary' %}"
+     hx-trigger="update-cart from:body"
+     hx-swap="outerHTML" class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+    <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <p class="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
+
+        <div class="space-y-4">
+            <div class="space-y-2">
+                <dl id="subtotal-section" class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Subtotal</dt>
+                    <dd id="subtotal"
+                        hx-get="{% url 'cart:update_cart_summary' %}"
+                        hx-trigger="update-cart from:body" hx-swap="innerHTML"
+                        hx-select="#subtotal-section" class="text-base font-medium text-gray-900 dark:text-white">
+                        ${{ subtotal|floatformat:1 }}
+                    </dd>
+                </dl>
+
+                {% if cart.coupon %}
+                <dl id="coupon-section" class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Savings</dt>
+                    <dd id="discount" hx-get="{% url 'cart:update_cart_summary' %}"
+                        hx-trigger="update-cart from:body" hx-swap="innerHTML" hx-select="#discount"
+                        class="text-base font-medium text-green-600">{{ discount }}
+                    </dd>
+                </dl>
+                {% endif %}
+
+                <!--                <dl class="flex items-center justify-between gap-4">-->
+                <!--                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Store Pickup</dt>-->
+                <!--                    <dd class="text-base font-medium text-gray-900 dark:text-white">$99</dd>-->
+                <!--                </dl>-->
+
+                <dl id="tax-section" class="flex items-center justify-between gap-4">
+                    <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Tax</dt>
+                    <dd id="tax" hx-get="{% url 'cart:update_cart_summary' %}"
+                        hx-trigger="update-cart from:body" hx-swap="innerHTML"
+                        hx-select="#tax-section" class="text-base font-medium text-gray-900 dark:text-white">
+                        ${{ tax|floatformat:1 }}
+                    </dd>
+                </dl>
+            </div>
+
+            <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                <dd id="total-price" hx-get="{% url 'cart:update_cart_summary' %}"
+                    hx-trigger="update-cart from:body" hx-swap="innerHTML"
+                    hx-select="#total-price-section" class="text-base font-bold text-gray-900 dark:text-white">
+                    ${{ total_price|floatformat:1 }}
+                </dd>
+            </dl>
+        </div>
+
+        <a href="{% url 'orders:create_order' %}"
+           class="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Proceed
+            to Checkout</a>
+
+        <div class="flex items-center justify-center gap-2">
+            <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
+            <a href="{% url 'store:product_list' %}" title=""
+               class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-white">
+                Continue Shopping
+                <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                     viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+
+    <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+        <form hx-post="{% url 'coupons:apply_coupon' %}" class="space-y-4">
+            <div>
+                <label for="code" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white">
+                    Do you have a voucher or gift card? </label>
+                <input type="text" id="code" name="code"
+                       class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500"
+                       placeholder="" required/>
+            </div>
+            <button type="submit"
+                    class="flex w-full items-center justify-center rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                Apply Code
+            </button>
+        </form>
+    </div>
+</div>

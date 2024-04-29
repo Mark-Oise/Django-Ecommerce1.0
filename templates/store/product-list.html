@@ -1,0 +1,174 @@
+<html>
+{% include '_base.html' %}
+{% include 'navigation/navbar.html' %}
+{% load static %}
+
+<body class="bg-gray-50 dark:bg-gray-900">
+<section id="hero">
+    <div class="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div class="place-self-center lg:col-span-7">
+            <h1 class="max-w-3xl mb-4 text-2xl font-semibold tracking-tight leading-none sm:text-3xl md:text-5xl xl:text-6xl dark:text-white">
+                Elevate your digital journey with our premium collection of Apple products.</h1>
+            <p class="max-w-2xl font-light text-gray-500 md:text-lg lg:text-xl dark:text-gray-400">From groundbreaking
+                iPhones to powerful MacBooks. Experience the future of technology through Apple's unparalleled design
+                and performance</p>
+        </div>
+    </div>
+</section>
+<section id="product" class="">
+    <div class="max-w-screen-xl px-4 mx-auto lg:px-12 w-full">
+        <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
+            <div class="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
+                <div class="w-full md:w-1/2">
+                    <div class="flex items-center">
+                        {% csrf_token %}
+                        <label for="simple-search" class="sr-only">Search</label>
+                        <div class="relative w-full">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true"
+                                     xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M18 5h-.7c.229-.467.349-.98.351-1.5a3.5 3.5 0 0 0-3.5-3.5c-1.717 0-3.215 1.2-4.331 2.481C8.4.842 6.949 0 5.5 0A3.5 3.5 0 0 0 2 3.5c.003.52.123 1.033.351 1.5H2a2 2 0 0 0-2 2v3a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1V7a2 2 0 0 0-2-2ZM8.058 5H5.5a1.5 1.5 0 0 1 0-3c.9 0 2 .754 3.092 2.122-.219.337-.392.635-.534.878Zm6.1 0h-3.742c.933-1.368 2.371-3 3.739-3a1.5 1.5 0 0 1 0 3h.003ZM11 13H9v7h2v-7Zm-4 0H2v5a2 2 0 0 0 2 2h3v-7Zm6 0v7h3a2 2 0 0 0 2-2v-5h-5Z"/>
+                                </svg>
+                            </div>
+                            <input type="text" hx-get="{% url 'store:search' %}"
+                                   hx-trigger="input changed delay:500ms, search"
+                                   hx-target="#product-list-items" type="text" id="simple-search"
+                                   name="q"
+                                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                   placeholder="Search products..." required>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
+                    <div class="flex items-center w-full space-x-3 md:w-auto">
+
+                        <button id="SortDropdownButton" data-dropdown-toggle="SortDropdown"
+                                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                type="button">
+                            <svg class="w-4 h-4 mr-2 text-gray-400" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8.574 11.024h6.852a2.075 2.075 0 0 0 1.847-1.086 1.9 1.9 0 0 0-.11-1.986L13.736 2.9a2.122 2.122 0 0 0-3.472 0L6.837 7.952a1.9 1.9 0 0 0-.11 1.986 2.074 2.074 0 0 0 1.847 1.086Zm6.852 1.952H8.574a2.072 2.072 0 0 0-1.847 1.087 1.9 1.9 0 0 0 .11 1.985l3.426 5.05a2.123 2.123 0 0 0 3.472 0l3.427-5.05a1.9 1.9 0 0 0 .11-1.985 2.074 2.074 0 0 0-1.846-1.087Z"/>
+                            </svg>
+                            Sort By
+                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clip-rule="evenodd" fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div hx-target="#product-list-items"
+                             hx-select="#product-list-items"
+                             hx-swap="outerHTML"
+                             id="SortDropdown"
+                             class="z-10 hidden w-48 p-4 bg-white rounded-lg shadow dark:bg-gray-700">
+                            <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                                Price
+                            </h6>
+                            <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                                <li class="flex items-center">
+
+                                    <input hx-get="{% url 'store:product_list' %}?sort_by=ascending-price"
+                                           hx-trigger="click"
+                                           id="lowest" type="checkbox" value="ascending-price" name="sort_by"
+                                           class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                                    >
+                                    <label for="lowest"
+                                           class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                        Lowest to highest
+                                    </label>
+
+                                </li>
+                                <li class="flex items-center">
+
+                                    <input hx-get="{% url 'store:product_list' %}?sort_by=descending-price"
+                                           hx-trigger="click"
+                                           id="highest" type="checkbox" value="descending-price" name="sort_by"
+                                           class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="highest"
+                                           class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                        Highest to lowest
+                                    </label>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <button id="filterDropdownButton" data-drawer-target="search-drawer"
+                                data-drawer-show="search-drawer"
+                                aria-controls="search-drawer"
+                                class="flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg md:w-auto focus:outline-none hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                                type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                 class="w-4 h-4 mr-2 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                      d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                            Filter
+                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+                                 xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path clip-rule="evenodd" fill-rule="evenodd"
+                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"/>
+                            </svg>
+                        </button>
+                        <!-- Dropdown menu -->
+                        <div id="filterDropdown"
+                             class="z-10 hidden w-48 p-4 bg-white rounded-lg shadow dark:bg-gray-700">
+                            <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+                                Category
+                            </h6>
+                            <form method="get"
+                                  action="">
+                                <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+                                    <li class="flex items-center">
+                                        <input id="all" type="checkbox" value=""
+                                               onchange="handleCheckboxChange(this, '{{ category.slug }}')"
+                                               class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600
+                                        focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700
+                                        focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                        <label for="all"
+                                               class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            All
+                                        </label>
+                                    </li>
+
+                                    {% for category in categories %}
+
+                                    <li class="flex items-center">
+                                        <input id="{{ category.slug }}" type="checkbox" value="{{ category.slug }}"
+                                               onchange="handleCheckboxChange(this, '{{ category.slug }}')"
+                                               class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600
+                                        focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700
+                                        focus:ring-2 dark:bg-gray-600 dark:border-gray-500"/>
+                                        <label for="{{ category.slug }}"
+                                               class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+                                            {{ category.name }}
+                                        </label>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="flex flex-row items-center p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4"
+             id="product-list-items">
+            {% include 'store/partials/product-items.html' %}
+        </div>
+    </div>
+
+    <div class="flex items-center justify-center p-4">
+        {% include 'store/partials/pagination.html' %}
+    </div>
+</section>
+
+
+{% include 'store/partials/search_drawer.html' %}
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!-- This <div> represents a container for displaying order summary information -->
+<div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+    <!-- Heading for the order summary section -->
+    <h3 class="mb-4 text-xl font-semibold dark:text-white">Order summary</h3>
+
+    <!-- Container for tab content related to order details -->
+    <div id="fullWidthTabContent" class="border-t border-gray-200 dark:border-gray-600">
+
+        <!-- Section for FAQs related to the order -->
+        <div class="pt-4" id="faq" role="tabpanel" aria-labelledby="faq-tab">
+            <!-- Unordered list for displaying order items -->
+            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700" id="order-items"
+                hx-get="{% url 'orders:get_order_items' %}"
+                hx-target="this"
+                hx-trigger="update-cart from:body">
+                <!-- Including a partial template to render order item list -->
+                {% include 'orders/partials/order-item-list.html' %}
+            </ul>
+        </div>
+
+        <!-- Horizontal rule for visual separation -->
+        <hr class="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
+
+        <!-- Including a partial template for handling coupons -->
+        {% include 'orders/partials/coupon.html' %}
+
+    </div>
+
+    <!-- Including a partial template for displaying the order summary -->
+    {% include 'orders/partials/order-summary.html' %}
+</div>

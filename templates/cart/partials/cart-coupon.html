@@ -1,0 +1,39 @@
+<aside class="p-4 bg-white border border-gray-200 rounded-lg shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+    <h3 class="mb-3 text-md font-medium text-gray-900 dark:text-white">Coupon Code</h3>
+    <p class="mb-5 font-sm text-gray-900 dark:text-white">Unlock extra savings! Enter your coupon code
+        in
+        the box below and click 'Apply' to enjoy your discount.</p>
+    <form hx-post="{% url 'coupons:apply_coupon' %}">
+        {% csrf_token %}
+        <div data-style="clean" class="flex mb-3">
+            <div
+                    class="flex items-center w-full max-w-md mb-3">
+                <div class="relative w-full mr-3">
+                    <label for="code"
+                           class="hidden block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
+                        address</label>
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                             viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                  d="M20.29 8.567c.133.323.334.613.59.85v.002a3.536 3.536 0 0 1 0 5.166 2.442 2.442 0 0 0-.776 1.868 3.534 3.534 0 0 1-3.651 3.653 2.483 2.483 0 0 0-1.87.776 3.537 3.537 0 0 1-5.164 0 2.44 2.44 0 0 0-1.87-.776 3.533 3.533 0 0 1-3.653-3.654 2.44 2.44 0 0 0-.775-1.868 3.537 3.537 0 0 1 0-5.166 2.44 2.44 0 0 0 .775-1.87 3.55 3.55 0 0 1 1.033-2.62 3.594 3.594 0 0 1 2.62-1.032 2.401 2.401 0 0 0 1.87-.775 3.535 3.535 0 0 1 5.165 0 2.444 2.444 0 0 0 1.869.775 3.532 3.532 0 0 1 3.652 3.652c-.012.35.051.697.184 1.02ZM9.927 7.371a1 1 0 1 0 0 2h.01a1 1 0 0 0 0-2h-.01Zm5.889 2.226a1 1 0 0 0-1.414-1.415L8.184 14.4a1 1 0 0 0 1.414 1.414l6.218-6.217Zm-2.79 5.028a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01Z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+
+                    </div>
+                    <input id="code"
+                           class="formkit-input bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                           name="code" aria-label="code"
+                           placeholder=""
+                           required="" type="text">
+                </div>
+                <button type="submit">
+
+                    <span class="px-5 py-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg cursor-pointer hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Apply</span>
+                </button>
+            </div>
+        </div>
+    </form>
+
+</aside>

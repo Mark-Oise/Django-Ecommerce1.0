@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{# Title #}
+{% block title %}<title>Admin | Home</title>{% endblock title %}
+
+
+{# General meta information (i.e. Description, tags, etc...) #}
+{% block meta %}
+{% endblock meta %}
+
+
+{# Stylesheets #}
+{% block style %}
+{% endblock style %}
+
+
+{# Head Scripts #}
+{% block head_script %}
+{% endblock head_script %}
+
+
+{# Header #}
+{% block header %}
+    {% include 'components/header.html' %}
+{% endblock header %}
+
+
+{# Page content #}
+{% block content %}
+
+    <div>
+        <div class="lg:flex lg:gap-x-16">
+            {% include 'adminpanel/components/sidebar.html' %}
+
+            <div class="px-4 py-2 sm:px-6 lg:flex-auto lg:px-0">
+                <div class="mx-auto max-w-4xl lg:mx-0 lg:max-w-none">
+
+                    {# Search and button events #}
+                    <div class="border-b border-gray-200 pb-4">
+                        <div class="flex justify-between">
+                            {% include 'adminpanel/components/list/search-bar.html' %}
+                            {% include 'adminpanel/components/list/button-bar.html' %}
+                        </div>
+                    </div>
+
+                    {# Table container #}
+                    <div class="overflow-x-auto">
+                        {% include 'adminpanel/feedback/partials/table-container.html' %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+
+{# Footer #}
+{% block footer %}
+    {% include 'components/footer.html' %}
+{% endblock footer %}
+
+
+{# Scripts #}
+{% block scripts %}
+{% endblock scripts %}

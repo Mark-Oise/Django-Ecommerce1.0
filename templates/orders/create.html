@@ -1,0 +1,15 @@
+<html>
+{% include '_base.html' %}
+{% include 'navigation/navbar.html' %}
+{% load static %}
+
+<body class="bg-gray-50 dark:bg-gray-900">
+<main>
+    <div class="h-full px-4 pt-6">
+        <div class="">
+            {% include 'orders/partials/order-items.html' %}
+        </div>
+    </div>
+</main>
+</body>
+</html>

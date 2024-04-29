@@ -1,0 +1,28 @@
+<div class="grid gap-4 px-4 mb-4 md:grid-cols-2 xl:grid-cols-4 xl:px-0}">
+    <div class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+
+        <div class="mt-8 mb-8">
+            <div class="flow-root">
+
+                <ul role="list" class="-my-6 divide-y divide-gray-200" id="cart-items"
+                    hx-get="{% url 'cart:get_cart_items' %}"
+                    hx-target="this"
+                    hx-trigger="update-cart from:body">
+
+                    {% include 'cart/partials/cart-item-list.html' %}
+
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+    <!--    <div id="coupon" class="">-->
+    <!--        {% include 'cart/partials/cart-coupon.html' %}-->
+    <!--    </div>-->
+
+
+    <div id="summary">
+        {% include 'cart/partials/cart-summary.html' %}
+    </div>
+</div>
