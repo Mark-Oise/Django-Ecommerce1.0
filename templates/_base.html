@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,6 @@
 
     <link rel="stylesheet" href="{% static 'css/shop/output.css' %}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script>
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -19,6 +17,7 @@
     } else {
         document.documentElement.classList.remove('dark')
     }
+
 
 
     </script>
@@ -41,11 +40,13 @@
 
 
 
+
 </script>
 <script>
     document.body.addEventListener('htmx:configRequest', (event) => {
     event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
 })
+
 
 
 
@@ -129,6 +130,7 @@ themeToggleBtn.addEventListener('click', function() {
     }
 
 });
+
 
 </script>
 </body>
