@@ -2,6 +2,7 @@ import uuid
 from django.db import models
 from django.utils import timezone
 from apps.products.models import Product
+from django.conf import settings
 
 
 # Create your models here.
@@ -32,6 +33,8 @@ class Order(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=ORDER_STATUS, default='pending')
+    stripe_id = models.CharField(max_length=250, blank=True)
+    paid = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['created']
@@ -50,6 +53,17 @@ class Order(models.Model):
     @property
     def total_price(self):
         return sum(item.total_price for item in self.items.all())
+
+    def get_stripe_url(self):
+        if not self.stripe_id:
+            # No payment associated
+            return ''
+        if '_test_' in settings.STRIPE_SECRET_KEY:
+            # Stripe path for test payments
+            path = '/test/'
+        else:
+            path = '/'
+        return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
 
 
 class OrderItem(models.Model):

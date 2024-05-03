@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
 from django.urls import reverse
 from .forms import OrderCreationForm
-from .models import OrderItem
+from .models import OrderItem, Order
 from .tasks import order_created
 from apps.cart.views import get_cart
+import weasyprint
+
 
 # Create your views here.
 
@@ -38,7 +42,7 @@ def update_order_summary(request):
 
 def create_order(request):
     cart = get_cart(request)
-    cart_items = []  # Initialize cart_items with an empty list
+    cart_items = cart.items.all() if request.method == 'GET' else []  # Initialize cart_items conditionally
 
     if request.method == 'POST':
         form = OrderCreationForm(request.POST)
@@ -46,21 +50,17 @@ def create_order(request):
             order = form.save()
 
             # Create order items based on cart items
-            cart_items = cart.items.all()
-            for cart_item in cart_items:
-                OrderItem.objects.create(
-                    order=order,
-                    product=cart_item.product,
-                    price=cart_item.price,
-                    quantity=cart_item.quantity
-                )
-            cart_item.delete()
-
-            # Set the order in the session
-            request.session['order_id'] = order.id
+            OrderItem.objects.create([
+                OrderItem(order=order, product=item.product, price=item.price, quantity=item.quantity)
+                for item in cart_items
+            ])
+            cart.items.all().delete()
 
             # Trigger the order_created task asynchronously
             order_created.delay(order.id)
+
+            # Set the order in the session
+            request.session['order_id'] = order.id
 
             # Redirect to the payment:process URL
             return redirect(reverse('payment:process'))
@@ -69,3 +69,12 @@ def create_order(request):
         cart_items = cart.items.all()  # Populate cart_items with the actual data
 
     return render(request, 'orders/create.html', {'form': form, 'cart_items': cart_items})
+
+
+def order_pdf(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+    html = render_to_string('orders/invoice.html', {'order': order})
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-disposition'] = f'filename=order_{order.order_id}.pdf'
+    weasyprint.HTML(string=html).write_pdf(response)
+    return response

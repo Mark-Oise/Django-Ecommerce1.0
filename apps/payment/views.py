@@ -13,7 +13,7 @@ stripe.api_version = settings.STRIPE_API_VERSION
 
 
 def process_payment(request):
-    order_id = request.session.get('order_id')
+    order_id = request.session.get('order_id', None)
     order = get_object_or_404(Order, id=order_id)
 
     if request.method == 'POST':
@@ -48,7 +48,7 @@ def process_payment(request):
         return redirect(session.url, code=303)
 
     else:
-        return render(request, 'payment/process.html', {'order': order})
+        return render(request, 'payment/process.html', locals())
 
 
 def payment_completed(request):

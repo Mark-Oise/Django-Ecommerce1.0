@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    # 3rd party packages
+    'compressor',
+
     # Project apps
     'apps.accounts',
     'apps.products',
@@ -61,8 +64,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-
 
 ROOT_URLCONF = "config.urls"
 
@@ -146,6 +147,15 @@ STATICFILES_DIRS = [
     # BASE_DIR / 'libs/npm/node_modules/htmx.org/dist/',
     # BASE_DIR / 'libs/npm/node_modules/jquery/dist/',
 ]
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_ENABLED = True
+COMPRESS_OUTPUT_DIR = 'compressed'
 
 # Media files (Images, Videos, etc...)
 # https://docs.djangoproject.com/en/4.2/topics/files/
