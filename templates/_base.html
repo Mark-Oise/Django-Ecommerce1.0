@@ -7,12 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-
-    {% compress css %}
-    <link rel="stylesheet" href="{% static 'css/shop/output.css' %}">
-    <link href="{% static 'css/flowbite.css' %}" rel="stylesheet"/>
-    {% endcompress %}
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
     {% compress js %}
     <script src="{% static 'js/htmx.min.js' %}"></script>
     {% endcompress%}
@@ -51,11 +46,17 @@
 
 
 
+
+
+
 </script>
 <script>
     document.body.addEventListener('htmx:configRequest', (event) => {
     event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
 })
+
+
+
 
 
 
