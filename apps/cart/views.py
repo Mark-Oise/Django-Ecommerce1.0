@@ -80,9 +80,8 @@ def add_to_cart(request, product_slug):
             messages.error(request, f'Sorry we only have {product.quantity} units of {product.name} in stock')
 
     cart_item.save()
-    response = HttpResponse(status=204)
-    response['HX-Trigger'] = 'update-cart'
-    return response
+
+    return render(request, 'navigation/partials/cart-button.html')
 
 
 def increase_item_quantity(request, product_slug):
