@@ -1,7 +1,6 @@
 <div class="ml-2">
     <a href="{% url 'cart:cart' %}"
-       hx-get="{% url 'cart:hx_cart_button' %}" hx-trigger="update-cart from:body"
-       hx-swap="innerHTML"
+       hx-trigger="update-cart from:body"
        id="cart-button" href="" class="group -m-2 flex items-center p-2">
         <svg class="h-7 w-7 flex-shrink-0 text-gray-400 group-hover:text-gray-500 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700"
              fill="none" viewBox="0 0 24 24"
